@@ -1,1 +1,1 @@
-#pragma once
+#define SIZE 256

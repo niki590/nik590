@@ -5,7 +5,7 @@
 
 struct Node_t{
 	char* data;
-	struct Node *next;
+	 struct Node_t *next;
 };
 
 //******************************************************************************
@@ -31,7 +31,7 @@ NODE* link_create()
 //data - the info of new data needed to be added
 //* Return Value: NA
 //******************************************************************************
-Result link_push(NODE** head, char* data)
+Result link_push(NODE* head, char* data)
 {
 	NODE* new_node = (NODE*) malloc(sizeof(NODE));
 	if (new_node == NULL) {
@@ -39,8 +39,8 @@ Result link_push(NODE** head, char* data)
 		return FAILURE;
 	}
 	new_node->data = data;
-	new_node->next = (*head);
-	(*head) = new_node;
+	new_node->next = head->next;
+	head->next = new_node;
 	return SUCCESS;
 }
 
@@ -50,9 +50,9 @@ Result link_push(NODE** head, char* data)
 //* Parameters: head- pointer to pointer to the head of linked list 
 //* Return Value: NA
 //******************************************************************************
-void link_delete(NODE** head)
+void link_delete(NODE* head)
 {
-	NODE* ptr = *head;
+	NODE* ptr = head;
 	NODE* ptr_next = NULL;
 	while (ptr != NULL)
 	{
@@ -60,7 +60,7 @@ void link_delete(NODE** head)
 		free(ptr);
 		ptr = ptr_next;
 	}
-	*head = NULL;
+	head = NULL;
 }
 
 //******************************************************************************
@@ -71,10 +71,10 @@ void link_delete(NODE** head)
 //				name- the name of the friend which i wana delete
 //* Return Value: FAILURE or SUCCESS 
 //******************************************************************************
-Result link_find_delete(NODE** head,char* name)
+Result link_find_delete(NODE* head,char* name)
 {
-	NODE* ptr_curr = (*head)->next;
-	NODE* ptr_prev = *head;
+	NODE* ptr_curr = head->next;
+	NODE* ptr_prev = head;
 	while (ptr_curr!= NULL)
 	{
 		if (strcmp(ptr_curr->data,name) == 0)
